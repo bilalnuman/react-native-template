@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import BottomTabNavigator from './BottomTabNavigator';
 import PublicNavigator from './PublicNavigator';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuth } from '@/providers/AuthProvider';
+import SplashScreen from '@/screens/SplashScreen';
 
 const AppNavigator = () => {
-    const { isAuthenticated } = useAuthStore()
+    const { isAuthenticated, isLoading, isInitialized } = useAuth()
+    const [isSplashComplete, setIsSplashComplete] = useState(false)
+
+    const handleSplashComplete = () => {
+        setIsSplashComplete(true)
+    }
+    if (!isSplashComplete || !isInitialized || isLoading) {
+        return <SplashScreen onReady={handleSplashComplete} />
+    }
+
     return isAuthenticated ? <BottomTabNavigator /> : <PublicNavigator />
 }
 

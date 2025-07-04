@@ -4,8 +4,18 @@ import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppNavigator from './src/navigation/AppNavigator';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from './src/providers/AuthProvider';
 import FlashMessage from 'react-native-flash-message';
-const queryClient = new QueryClient();
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -14,7 +24,9 @@ function App() {
       <NavigationContainer>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <QueryClientProvider client={queryClient}>
-          <AppNavigator />
+          <AuthProvider>
+            <AppNavigator />
+          </AuthProvider>
         </QueryClientProvider>
       </NavigationContainer>
       <FlashMessage position="top" />

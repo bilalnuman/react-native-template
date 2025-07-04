@@ -1,6 +1,19 @@
-import { useMutation } from '@tanstack/react-query';
-import { login, signup } from '../services';
-import { SignInFormValues } from '../schemas';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { login, me, signup } from '../services';
+
+
+export const useMe = (enabled: boolean = true) => {
+    return useQuery({
+        queryKey: ['me'],
+        queryFn: () => me(),
+        enabled,
+        staleTime: 5 * 60 * 1000,
+        gcTime: 10 * 60 * 1000,
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: false,
+        retry: 1,
+    });
+};
 
 export const useSignup = () => {
     return useMutation({
@@ -13,16 +26,3 @@ export const useSignin = () => {
         mutationFn: login,
     });
 };
-
-// export const useForgotPassword = () => {
-//     return useMutation({
-//         mutationFn: forgotpassword,
-//     });
-// };
-
-// export const usePasswordReset = () => {
-//     return useMutation({
-//         mutationFn: ({ payload, id }: { payload: any; id: string }) =>
-//             passwordReset(payload, id),
-//     });
-// };

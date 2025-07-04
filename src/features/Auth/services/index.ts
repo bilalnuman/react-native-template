@@ -7,3 +7,6 @@ export const login = (payload: any) =>
 
 export const signup = (payload: any) =>
     apiClient.post(URLS.REGISTER, payload);
+
+export const me = () =>
+    apiClient.get(URLS.ME);
