@@ -1,7 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { showMessage } from 'react-native-flash-message';
 import { useForm } from "react-hook-form";
-import { ForgotPasswordSchema, ResetPasswordSchema, SignInSchema, SignupSchema } from "../schemas";
+import { ForgotPasswordSchema, ResetPasswordSchema, SignInFormValues, SignInSchema, SignupSchema } from "../schemas";
 import { useEffect, useState } from "react";
+import { useSignin } from "./QueryHook";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export const useSignUp = () => {
 
@@ -36,7 +40,8 @@ export const useSignUp = () => {
 }
 
 export const useSignIn = () => {
-
+    const { mutateAsync: signin, data, isPending, isError, error } = useSignin()
+    const { setToken } = useAuthStore()
     const {
         handleSubmit,
         control,
@@ -47,7 +52,22 @@ export const useSignIn = () => {
         mode: "onChange"
     });
 
-    const signIn = handleSubmit((data) => console.log(data))
+    const signIn = handleSubmit((data: SignInFormValues) => {
+        signin(data, {
+            onSuccess: async (data) => {
+                if (data?.data?.access_token) {
+                    await AsyncStorage.setItem('token', data?.data?.access_token);
+                    setToken(data?.data?.access_token)
+                }
+                showMessage({ message: "Your logged in successfully", type: "success" })
+                reset()
+            },
+            onError: (error: any) => {
+                const message = error?.errors?.non_field_errors?.toString()
+                showMessage({ message, type: 'danger'});
+            }
+        })
+    })
 
     useEffect(() => {
         return () => {
@@ -55,10 +75,13 @@ export const useSignIn = () => {
         }
     }, [reset])
 
+    const apiRes = { data, isPending, isError, error }
+
     return {
         control,
         errors,
         signIn,
+        apiRes
     };
 }
 

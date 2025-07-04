@@ -1,9 +1,10 @@
 import React from 'react'
 import BottomTabNavigator from './BottomTabNavigator';
 import PublicNavigator from './PublicNavigator';
+import { useAuthStore } from '@/store/useAuthStore';
 
 const AppNavigator = () => {
-    const isAuthenticated = false;
+    const { isAuthenticated } = useAuthStore()
     return isAuthenticated ? <BottomTabNavigator /> : <PublicNavigator />
 }
 

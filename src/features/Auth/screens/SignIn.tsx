@@ -1,14 +1,15 @@
-import { Button, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useSignIn } from '../hooks';
 import BackButton from '@shared/BackButton';
+import LoadingButton from '@shared/LoadingButton';
 import { useNavigation } from '@react-navigation/native';
 import { routes } from '@constant/routes';
 import { EmailAndPasswordField } from '../components';
 
 
 const SignInScreen = () => {
-    const { control, errors, signIn } = useSignIn();
+    const { control, errors, signIn, apiRes } = useSignIn();
     const navigation = useNavigation();
     return (
         <>
@@ -24,10 +25,16 @@ const SignInScreen = () => {
                         control={control}
                         errors={errors}
                     />
-                    <Button title="Sign In" onPress={() => signIn()} />
+                    <LoadingButton 
+                        title="Sign In" 
+                        onPress={() => signIn()} 
+                        loading={apiRes.isPending}
+                        loadingText="Signing in..."
+                        style={styles.signInButton}
+                    />
                     <Text style={styles.linkText}>
                         <Text
-                            style={[styles.link,{width:"100%",textAlign:"right"}]}
+                            style={[styles.link, { width: "100%", textAlign: "right" }]}
                             onPress={() => navigation.navigate(routes.forgotPassword as never)}
                         >
                             Forgot password?
@@ -76,5 +83,9 @@ const styles = StyleSheet.create({
     link: {
         color: '#007AFF',
         fontWeight: 'bold',
+    },
+    signInButton: {
+        marginTop: 24,
+        marginBottom: 16,
     },
 });

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { BASE_URL } from '@env';
+import { config } from '../config/env';
 
 const apiClient = axios.create({
-    baseURL: BASE_URL,
+    baseURL: config.BASE_URL,
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',

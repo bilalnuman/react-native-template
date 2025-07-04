@@ -1,10 +1,15 @@
+import { useAuthStore } from '@/store/useAuthStore';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const ProfileScreen = () => {
+  const { logout } = useAuthStore()
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Profile Screen</Text>
+      <Text onPress={() => {
+        logout()
+      }}>Logout</Text>
     </View>
   );
 };
