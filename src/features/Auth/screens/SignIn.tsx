@@ -2,10 +2,13 @@ import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useSignIn } from '../hooks';
 import BackButton from '@shared/BackButton';
-import LoadingButton from '@shared/LoadingButton';
 import { useNavigation } from '@react-navigation/native';
 import { routes } from '@constant/routes';
 import { EmailAndPasswordField } from '../components';
+import BackgroundImage from '@/shared/BackgroundImage';
+import Logo from '@/shared/Logo';
+import GradientButton from '@/shared/GradientButton';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const SignInScreen = () => {
@@ -13,26 +16,25 @@ const SignInScreen = () => {
     const navigation = useNavigation();
     return (
         <>
-            <BackButton />
+
+            <BackgroundImage />
             <ScrollView
                 contentContainerStyle={styles.scrollContent}
                 keyboardShouldPersistTaps="handled"
+                showsVerticalScrollIndicator={false}
             >
-                <StatusBar backgroundColor="#fff" />
                 <View style={styles.formWrapper}>
-                    <Text style={styles.formTitle}>Sign In</Text>
+                    <Logo heading='Sign In to Your Account'
+                        containerStyle={{ marginBottom: 25 }}
+                    />
                     <EmailAndPasswordField
                         control={control}
                         errors={errors}
+                        passwordContainerStyle={{ marginBottom: 10 }}
+                        inputWrapper={{ backgroundColor: "transparent", borderRadius: 30, paddingVertical: 6 }}
                     />
-                    <LoadingButton 
-                        title="Sign In" 
-                        onPress={() => signIn()} 
-                        loading={apiRes.isPending}
-                        loadingText="Signing in..."
-                        style={styles.signInButton}
-                    />
-                    <Text style={styles.linkText}>
+
+                    <Text style={[styles.linkText, { marginBottom: 24 }]}>
                         <Text
                             style={[styles.link, { width: "100%", textAlign: "right" }]}
                             onPress={() => navigation.navigate(routes.forgotPassword as never)}
@@ -40,7 +42,8 @@ const SignInScreen = () => {
                             Forgot password?
                         </Text>
                     </Text>
-                    <Text style={styles.linkText}>
+                    <GradientButton onPress={() => signIn()} loading={apiRes.isPending} title='Submit' />
+                    <Text style={[styles.linkText, { marginTop: 24 }]}>
                         Already have an account?{' '}
                         <Text
                             style={styles.link}
@@ -60,32 +63,23 @@ export default SignInScreen
 const styles = StyleSheet.create({
     scrollContent: {
         flexGrow: 1,
-        backgroundColor: '#fff',
         paddingVertical: 24,
         paddingHorizontal: 16,
+        backgroundColor: "transparent",
+        justifyContent: "center"
     },
     formWrapper: {
         width: '100%',
         maxWidth: 400,
     },
-    formTitle: {
-        fontSize: 25,
-        fontWeight: 'bold',
-        alignSelf: "flex-start",
-        marginBottom: 30,
-        textAlign: 'center',
-    },
     linkText: {
         textAlign: 'center',
-        marginTop: 16,
         fontSize: 16,
+        color: "#fff"
     },
     link: {
-        color: '#007AFF',
+        color: '#fff',
         fontWeight: 'bold',
-    },
-    signInButton: {
-        marginTop: 24,
-        marginBottom: 16,
+
     },
 });

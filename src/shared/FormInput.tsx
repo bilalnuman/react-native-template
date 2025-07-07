@@ -22,6 +22,7 @@ interface FormInputProps extends TextInputProps {
     icon?: React.ReactNode;
     iconPosition?: 'left' | 'right';
     invalidWrapperStyle?: ViewStyle;
+    inputWrapper?: ViewStyle;
     invalidInputStyle?: TextStyle;
     label?: string;
     enablePasswordToggle?: boolean;
@@ -29,6 +30,7 @@ interface FormInputProps extends TextInputProps {
     inputStyle?: TextStyle;
     labelStyle?: TextStyle;
     errorStyle?: TextStyle;
+    iconColor?:string
 }
 
 const FLOAT_ANIM_DURATION = 150;
@@ -42,6 +44,7 @@ const FormInput: React.FC<FormInputProps> = ({
     label,
     icon,
     iconPosition = 'right',
+    iconColor = '#999',
     enablePasswordToggle,
     containerStyle,
     inputStyle,
@@ -50,6 +53,7 @@ const FormInput: React.FC<FormInputProps> = ({
     labelStyle,
     errorStyle,
     secureTextEntry,
+    inputWrapper,
     multiline,
     numberOfLines = 4,
     ...inputProps
@@ -118,9 +122,10 @@ const FormInput: React.FC<FormInputProps> = ({
                         <View
                             style={[
                                 styles.inputWrapper,
+                                inputWrapper,
                                 focused && { borderColor: '#007AFF' },
                                 isInvalid && { borderColor: '#FF3B30' },
-                                isInvalid ? { backgroundColor: "#FFF8F7" } : invalidWrapperStyle,
+                                isInvalid ? { backgroundColor: "transparent" } : invalidWrapperStyle,
                                 !isInvalid && hasValue && { borderColor: '#34C759' }
 
                             ]}
@@ -160,7 +165,7 @@ const FormInput: React.FC<FormInputProps> = ({
                                     <Icon
                                         name={secure ? 'eye-off' : 'eye'}
                                         size={20}
-                                        color={PLACEHOLDER_COLOR}
+                                        color={iconColor}
                                         style={styles.iconRight}
                                     />
                                 </Pressable>
@@ -204,6 +209,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingVertical: 10,
         fontSize: 16,
+        color:"#fff"
     },
     iconLeft: {
         marginRight: 8,

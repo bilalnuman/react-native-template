@@ -15,7 +15,7 @@ const SignUpScreen = () => {
     const navigation = useNavigation();
     return (
         <>
-            <BackButton />
+            {/* <BackButton /> */}
             <ScrollView
                 contentContainerStyle={styles.scrollContent}
                 keyboardShouldPersistTaps="handled"

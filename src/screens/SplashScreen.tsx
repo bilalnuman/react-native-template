@@ -1,7 +1,8 @@
-import { Image, ImageBackground, StatusBar, StyleSheet, Text, View, Animated, Easing } from 'react-native'
+import { StatusBar, StyleSheet, View, Animated, Easing } from 'react-native'
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import React, { useEffect, useRef } from 'react'
 import Logo from '@/shared/Logo';
+import BackgroundImage from '@/shared/BackgroundImage';
 
 interface SplashScreenProps {
     onReady?: () => void;
@@ -18,8 +19,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onReady, duration = 4000 })
 
     useEffect(() => {
         changeNavigationBarColor('transparent', true, true);
-        
-        // Start animations
         Animated.sequence([
             Animated.parallel([
                 Animated.timing(backgroundFadeAnim, {
@@ -64,8 +63,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onReady, duration = 4000 })
                 }),
             ]),
         ]).start();
-
-        // Handle duration timer
         const timer = setTimeout(() => {
             onReady?.();
         }, duration);
@@ -79,7 +76,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onReady, duration = 4000 })
     return (
         <View style={styles.container}>
             <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content" />
-            <Animated.View 
+            <Animated.View
                 style={[
                     styles.backgroundContainer,
                     {
@@ -88,14 +85,10 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onReady, duration = 4000 })
                     }
                 ]}
             >
-                <ImageBackground 
-                    source={require('@/assets/splash-screen.png')} 
-                    style={styles.backgroundImage} 
-                    resizeMode={'cover'} 
-                />
+                <BackgroundImage />
             </Animated.View>
             <View style={styles.contentContainer}>
-                <Animated.View 
+                <Animated.View
                     style={[
                         styles.logoContainer,
                         {
@@ -106,7 +99,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onReady, duration = 4000 })
                 >
                     <Logo />
                 </Animated.View>
-                <Animated.Text 
+                <Animated.Text
                     style={[
                         styles.titleText,
                         {
@@ -130,11 +123,6 @@ const styles = StyleSheet.create({
     },
     backgroundContainer: {
         flex: 1,
-    },
-    backgroundImage: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: "#358AC9",
     },
     contentContainer: {
         position: 'absolute',
