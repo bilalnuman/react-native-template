@@ -69,7 +69,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onReady, duration = 4000 })
 
         return () => {
             clearTimeout(timer);
-            changeNavigationBarColor('#ffffff', true, true);
+            // changeNavigationBarColor('#ffffff', true, true);
         };
     }, [duration, onReady]);
 

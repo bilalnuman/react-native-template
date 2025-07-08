@@ -4,4 +4,6 @@ export const routes = {
     signUp: 'SignUp',
     forgotPassword: 'forgotPassword',
     resetPassword: 'resetPassword',
+    otp: 'otp',
+    congratulations: 'congratulations',
 };

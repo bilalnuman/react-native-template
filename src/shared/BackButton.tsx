@@ -7,10 +7,10 @@ interface Props {
     callback?: () => void;
     style?: StyleProp<ViewStyle>;
     containerStyle?: StyleProp<ViewStyle>;
-    iconColor?:string
+    iconColor?: string
 }
 
-const BackButton = ({ callback, style, containerStyle,iconColor="#000" }: Props) => {
+const BackButton = ({ callback, style, containerStyle, iconColor = "#fff" }: Props) => {
     const navigation = useNavigation();
 
     const handleBackPress = () => {
@@ -43,10 +43,9 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         justifyContent: 'center',
-        paddingHorizontal: 15,
-        backgroundColor: 'red',
-        paddingTop: 30,
-        paddingVertical: 8,
+        paddingBottom: 50,
+        paddingHorizontal: 16,
+        paddingTop: 20,
     },
     icon: {
         alignSelf: 'flex-start',

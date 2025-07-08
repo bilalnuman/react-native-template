@@ -6,8 +6,9 @@ interface PasswordAndConfirmProps {
     control: Control<any>;
     errors?: any;
     watch: any;
+    icon?: React.ReactNode
 }
-const PasswordAndConfirm = ({ control, errors, watch }: PasswordAndConfirmProps) => {
+const PasswordAndConfirm = ({ control, errors, watch, icon }: PasswordAndConfirmProps) => {
     const passwordMatch = usePasswordValidater(watch);
     return (
         <>
@@ -18,6 +19,7 @@ const PasswordAndConfirm = ({ control, errors, watch }: PasswordAndConfirmProps)
                 error={errors['password']?.message as string}
                 secureTextEntry
                 enablePasswordToggle
+                icon={icon}
             />
             <FormInput
                 name="confirmPassword"
@@ -26,6 +28,7 @@ const PasswordAndConfirm = ({ control, errors, watch }: PasswordAndConfirmProps)
                 error={passwordMatch as string}
                 secureTextEntry
                 enablePasswordToggle
+                icon={icon}
             />
         </>
     )

@@ -29,12 +29,14 @@ export const useSignUp = () => {
             trigger();
         }
     }, [reset, trigger])
+    const apiRes = { isPending: false }
     return {
         control,
         errors,
         signUp,
         watch,
-        reset
+        reset,
+        apiRes
     };
 
 }
@@ -64,7 +66,7 @@ export const useSignIn = () => {
             },
             onError: (error: any) => {
                 const message = error?.errors?.non_field_errors?.toString()
-                showMessage({ message, type: 'danger'});
+                showMessage({ message, type: 'danger' });
             }
         })
     })
@@ -103,10 +105,39 @@ export const useForgotPassword = () => {
             reset();
         }
     }, [reset])
+    const apiRes = { isPending: false }
     return {
         control,
         errors,
         submit,
+        apiRes
+    };
+}
+
+export const useOtp = () => {
+
+    const {
+        handleSubmit,
+        control,
+        reset,
+        formState: { errors },
+    } = useForm<any>({
+        resolver: zodResolver(ForgotPasswordSchema),
+        mode: "onChange"
+    });
+
+    const submit = handleSubmit((data) => console.log(data))
+    useEffect(() => {
+        return () => {
+            reset();
+        }
+    }, [reset])
+    const apiRes = { isPending: false }
+    return {
+        control,
+        errors,
+        submit,
+        apiRes
     };
 }
 
@@ -129,11 +160,13 @@ export const useResetPassword = () => {
             reset();
         }
     }, [reset])
+    const apiRes = { isPending: false }
     return {
         control,
         errors,
         resetPassword,
-        watch
+        watch,
+        apiRes
     };
 }
 

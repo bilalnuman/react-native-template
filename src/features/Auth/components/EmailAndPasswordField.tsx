@@ -1,6 +1,6 @@
-import { StyleSheet, ViewStyle } from 'react-native'
+import { ViewStyle } from 'react-native'
 import React from 'react'
-import FormInput, { PLACEHOLDER_COLOR } from '@/shared/FormInput'
+import FormInput from '@/shared/FormInput'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Control } from 'react-hook-form';
 interface EmailAndPasswordProps {
@@ -32,11 +32,9 @@ const EmailAndPassword = ({ control, errors, emailContainerStyle, passwordContai
                 secureTextEntry
                 containerStyle={passwordContainerStyle}
                 inputWrapper={inputWrapper}
-                placeholderTextColor="#fff"
-                iconColor='#fff'
                 enablePasswordToggle
-                 icon={<Icon name="lock" size={18} color={"#fff"} />}
-                 iconPosition="left"
+                icon={<Icon name="lock" size={18} color={"#fff"} />}
+                iconPosition="left"
             />
         </>
     )

@@ -3,16 +3,16 @@ import {
     ImageBackground,
     ImageResizeMode,
     StyleProp,
-    ImageStyle,
     ImageSourcePropType,
     StyleSheet,
+    ViewStyle,
 } from 'react-native';
 
 interface Props {
     source?: ImageSourcePropType;
     resizeMode?: ImageResizeMode;
     children?: ReactNode;
-    containerStyle?: StyleProp<ImageStyle>;
+    containerStyle?: StyleProp<ViewStyle>;
 }
 
 const BackgroundImage = ({
@@ -25,7 +25,7 @@ const BackgroundImage = ({
     return (
         <ImageBackground
             source={source}
-            style={[{ flex: 1 }, containerStyle,styles.backgroundImage]}
+            style={[StyleSheet.absoluteFill, styles.backgroundImage, containerStyle]}
             resizeMode={resizeMode}
             {...rest}
         >
@@ -36,16 +36,8 @@ const BackgroundImage = ({
 
 export default BackgroundImage;
 
-const styles= StyleSheet.create({
-      backgroundImage: {
-        flex:1,
-        width: '100%',
-        height: '100%',
-        position:"absolute",
-        backgroundColor: "#358AC9",
-        top:0,
-        left:0,
-        right:0,
-        bottom:0
+const styles = StyleSheet.create({
+    backgroundImage: {
+        backgroundColor: '#358AC9',
     },
 });

@@ -30,11 +30,11 @@ interface FormInputProps extends TextInputProps {
     inputStyle?: TextStyle;
     labelStyle?: TextStyle;
     errorStyle?: TextStyle;
-    iconColor?:string
+    iconColor?: string
 }
 
 const FLOAT_ANIM_DURATION = 150;
-export const PLACEHOLDER_COLOR = '#999';
+export const PLACEHOLDER_COLOR = '#fff';
 
 const FormInput: React.FC<FormInputProps> = ({
     name,
@@ -43,8 +43,8 @@ const FormInput: React.FC<FormInputProps> = ({
     floatLabel = false,
     label,
     icon,
-    iconPosition = 'right',
-    iconColor = '#999',
+    iconPosition = 'left',
+    iconColor = '#fff',
     enablePasswordToggle,
     containerStyle,
     inputStyle,
@@ -99,7 +99,7 @@ const FormInput: React.FC<FormInputProps> = ({
                 return (
                     <View style={[styles.container, containerStyle]}>
 
-                        {label && floatLabel? (
+                        {label && floatLabel ? (
                             <Animated.Text
                                 style={[
                                     styles.label,
@@ -117,7 +117,7 @@ const FormInput: React.FC<FormInputProps> = ({
                                 {label}
                             </Animated.Text>
                         )
-                        : label&&<Text style={[labelStyle]}>{label}</Text>}
+                            : label && <Text style={[labelStyle]}>{label}</Text>}
 
                         <View
                             style={[
@@ -201,15 +201,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 1,
         borderColor: '#ccc',
-        borderRadius: 8,
         paddingHorizontal: 12,
-        backgroundColor: '#fff',
+        borderRadius: 30,
+        paddingVertical: 6
     },
     input: {
         flex: 1,
         paddingVertical: 10,
         fontSize: 16,
-        color:"#fff"
+        color: "#fff"
     },
     iconLeft: {
         marginRight: 8,
