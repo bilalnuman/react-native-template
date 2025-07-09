@@ -14,6 +14,9 @@ import relationship from "@/assets/relationship.png"
 import health from "@/assets/health.png"
 import addiction from "@/assets/addiction.png"
 import question from "@/assets/question.png"
+import BackButton from '@/shared/BackButton';
+import { HomeScreenPropsTab } from '@/types/HomeScreenTabs';
+import GradientButton from '@/shared/GradientButton';
 
 const GOALS = [
     {
@@ -78,7 +81,7 @@ const GOALS = [
     },
 ]
 
-const MyFutureSelfGoals = () => {
+const MyFutureSelfGoals = ({ onTabChange }: HomeScreenPropsTab) => {
     const [goals, setGoals] = useState<string[]>([])
     const handleGoalPress = (value: string) => {
         setGoals((prev) =>
@@ -88,8 +91,11 @@ const MyFutureSelfGoals = () => {
         );
     };
     return (
-        <View style={{ marginTop: 60 }}>
-            <View style={{ flexDirection: 'row', alignItems: "flex-start" }}>
+        <View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "flex-start", paddingVertical: 30 }}>
+                <BackButton onPress={() => onTabChange("Religion")} />
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: "flex-start", justifyContent: "center" }}>
                 <Heading heading='My Future Self Goals' />
                 <EvilIcon name='exclamation' color={"#fff"} size={24} style={{ paddingTop: 6 }} onPress={() => Alert.alert('Hello')} />
             </View>
@@ -102,6 +108,7 @@ const MyFutureSelfGoals = () => {
                 ))}
 
             </View>
+            <GradientButton onPress={() => onTabChange("StateofRelease")} title='Continue' buttonStyle={{ marginTop: 20 }} />
         </View>
     )
 }

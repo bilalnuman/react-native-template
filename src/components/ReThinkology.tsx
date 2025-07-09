@@ -1,46 +1,44 @@
 import { Image, StyleSheet, View } from 'react-native'
 import React from 'react'
 import Heading from '@/shared/Heading'
-import img from '@/assets/img1.png'
-import GradientButton from '@/shared/GradientButton'
 import { HomeScreenPropsTab } from '@/types/HomeScreenTabs'
+import GradientButton from '@/shared/GradientButton'
 import BackButton from '@/shared/BackButton'
 
-const StateofRelease = ({ onTabChange }: HomeScreenPropsTab) => {
+const ReThinkology = ({ onTabChange }: HomeScreenPropsTab) => {
     return (
-        <View style={{ flex: 1, justifyContent: 'space-between' }}>
-            <View>
+        <View style={{ flex: 1, justifyContent: "space-between" }}>
+            <View style={[styles.container]}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "flex-start", paddingVertical: 30 }}>
-                    <BackButton onPress={() => onTabChange("MyFutureSelfGoals")} />
+                    <BackButton onPress={() => onTabChange("Gender")} />
                 </View>
-                <Heading
-                    heading='State of Release'
+                <Heading heading='Welcome to ReThinkology'
                     subHeading='Your faith matters. Let’s align your path with what you value most.'
                     subHeadingStyle={{ paddingHorizontal: 30 }}
                 />
                 <View style={styles.imgContainer}>
-                    <Image source={img} />
+                    <Image source={require('@/assets/img1.png')} resizeMode="cover" style={styles.image} />
                 </View>
-                <View style={styles.playerContainer}></View>
             </View>
-            <GradientButton onPress={() => onTabChange("MyFutureSelfLove")} title='Continue' buttonStyle={{ marginTop: 20 }} />
+            <GradientButton onPress={() => onTabChange("AgeChoose")} title='Continue' buttonStyle={{ marginTop: 20 }} />
         </View>
     )
 }
 
-export default StateofRelease
+export default ReThinkology
 
 const styles = StyleSheet.create({
+    container: {
+        paddingBottom: 20
+    },
     imgContainer: {
         height: 335,
         marginTop: 8,
         borderRadius: 15,
         overflow: 'hidden'
     },
-    playerContainer: {
-        height: 131,
-        backgroundColor: "#C7F1FB",
-        borderRadius: 15,
-        marginTop: 16
+    image: {
+        width: '100%',
+        height: '100%',
     },
 })
